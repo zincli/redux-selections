@@ -25,7 +25,11 @@
     "mocha": "^3.1.2",
     "mocha-bamboo-reporter": "^1.1.1",
     "nyc": "^10.1.2",
+    "redux-actions": "^1.2.1",
     "sinon": "^1.17.4",
     "supertest": "^2.0.1"
+  },
+  "peerDependencies": {
+    "redux-actions": "^1.2.1"
   }
 }
