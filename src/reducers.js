@@ -1,29 +1,21 @@
+import { handleActions } from 'redux-actions';
 import { TYPES } from './actions';
 import { allSelected } from './selectors';
 
-export default function itemSelections(state = [], action = {}) {
-  const {
-    type,
-    id,
-    selected,
-    selections = [],
-  } = action;
-
-  switch (type) {
-    case TYPES.INIT_SELECTIONS:
-      return selections.map(item => (Object.assign({}, item)));
-    case TYPES.TOGGLE_SELECTION:
-      return setSelection(state, id, itemSelected => !itemSelected);
-    case TYPES.TOGGLE_ALL_SELECTION:
-      return toggleAllSelection(state);
-    case TYPES.SET_SELECTION:
-      return setSelection(state, id, selected);
-    case TYPES.SET_ALL_SELECTION:
-      return setAllSelection(state, selected);
-    default:
-      return state;
-  }
-}
+export default handleActions({
+  [TYPES.INIT_SELECTIONS]:
+    (state, action) =>
+      action.payload.map(item => (Object.assign({}, item))),
+  [TYPES.TOGGLE_SELECTION]:
+    (state, action) =>
+      setSelection(state, action.payload, itemSelected => !itemSelected),
+  [TYPES.TOGGLE_ALL_SELECTION]:
+    state => toggleAllSelection(state),
+  [TYPES.SET_SELECTION]:
+    (state, { payload }) => setSelection(state, payload.id, payload.selected),
+  [TYPES.SET_ALL_SELECTION]:
+    (state, action) => setAllSelection(state, action.payload),
+}, []);
 
 function setSelection(selections, id, selected) {
   return selections.map((item) => {

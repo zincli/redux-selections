@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import { createActions } from 'redux-actions';
 
 export const TYPES = {
   INIT_SELECTIONS: 'INIT_SELECTIONS',
@@ -8,37 +8,16 @@ export const TYPES = {
   SET_ALL_SELECTION: 'SET_ALL_SELECTION',
 };
 
-export function initSelections({ selections }) {
-  return {
-    type: TYPES.INIT_SELECTIONS,
-    selections,
-  };
-}
-
-export function toggleSelection({ id }) {
-  return {
-    type: TYPES.TOGGLE_SELECTION,
-    id,
-  };
-}
-
-export function toggleAllSelection() {
-  return {
-    type: TYPES.TOGGLE_ALL_SELECTION
-  };
-}
-
-export function setSelection({ id, selected }) {
-  return {
-    type: TYPES.SET_SELECTION,
-    id,
-    selected,
-  };
-}
-
-export function setAllSelection({ selected }) {
-  return {
-    type: TYPES.SET_ALL_SELECTION,
-    selected,
-  };
-}
+export const {
+  initSelections,
+  toggleSelection,
+  toggleAllSelection,
+  setSelection,
+  setAllSelection,
+} = createActions(
+  TYPES.INIT_SELECTIONS,
+  TYPES.TOGGLE_SELECTION,
+  TYPES.TOGGLE_ALL_SELECTION,
+  TYPES.SET_SELECTION,
+  TYPES.SET_ALL_SELECTION
+);

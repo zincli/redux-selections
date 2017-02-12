@@ -14,7 +14,7 @@ describe('Action & Reducers', () => {
   describe('itemSelections(state, action)', () => {
     describe('INIT_SELECTIONS', () => {
       it('should initialize/reset the selections', () => {
-        const action = actions.initSelections({ selections: defaultSelections });
+        const action = actions.initSelections(defaultSelections);
         itemSelections({}, action)
           .should.eql(defaultSelections);
       });
@@ -22,7 +22,7 @@ describe('Action & Reducers', () => {
 
     describe('TOGGLE_SELECTION', () => {
       it('should toggle the selection of {id}', () => {
-        const action = actions.toggleSelection({ id: 'item1' });
+        const action = actions.toggleSelection('item1');
         isSelected(
           itemSelections(defaultSelections, action),
           'item1'
@@ -77,13 +77,13 @@ describe('Action & Reducers', () => {
 
     describe('SET_ALL_SELECTION', () => {
       it('should set the selection of all to false', () => {
-        const action = actions.setAllSelection({ selected: false });
+        const action = actions.setAllSelection(false);
         allSelected(
           itemSelections(defaultSelections, action)
         ).should.equal(false);
       });
       it('should set the selection of all to true', () => {
-        const action = actions.setAllSelection({ selected: true });
+        const action = actions.setAllSelection(true);
         allSelected(
           itemSelections(defaultSelections, action)
         ).should.equal(true);
@@ -100,12 +100,6 @@ describe('Action & Reducers', () => {
     describe('given undefined state', () => {
       it('should return an empty object', () => {
         itemSelections(undefined, { type: 'NOT_RELATED_ACTION' }).should.eql([]);
-      });
-    });
-
-    describe('given undefined action', () => {
-      it('should return given state', () => {
-        itemSelections(defaultSelections).should.equal(defaultSelections);
       });
     });
   });

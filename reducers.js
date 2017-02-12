@@ -3,41 +3,34 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = itemSelections;
+
+var _handleActions;
+
+var _reduxActions = require('redux-actions');
 
 var _actions = require('./actions');
 
 var _selectors = require('./selectors');
 
-function itemSelections() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var type = action.type,
-      id = action.id,
-      selected = action.selected,
-      _action$selections = action.selections,
-      selections = _action$selections === undefined ? [] : _action$selections;
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+exports.default = (0, _reduxActions.handleActions)((_handleActions = {}, _defineProperty(_handleActions, _actions.TYPES.INIT_SELECTIONS, function (state, action) {
+  return action.payload.map(function (item) {
+    return Object.assign({}, item);
+  });
+}), _defineProperty(_handleActions, _actions.TYPES.TOGGLE_SELECTION, function (state, action) {
+  return setSelection(state, action.payload, function (itemSelected) {
+    return !itemSelected;
+  });
+}), _defineProperty(_handleActions, _actions.TYPES.TOGGLE_ALL_SELECTION, function (state) {
+  return toggleAllSelection(state);
+}), _defineProperty(_handleActions, _actions.TYPES.SET_SELECTION, function (state, _ref) {
+  var payload = _ref.payload;
+  return setSelection(state, payload.id, payload.selected);
+}), _defineProperty(_handleActions, _actions.TYPES.SET_ALL_SELECTION, function (state, action) {
+  return setAllSelection(state, action.payload);
+}), _handleActions), []);
 
-  switch (type) {
-    case _actions.TYPES.INIT_SELECTIONS:
-      return selections.map(function (item) {
-        return Object.assign({}, item);
-      });
-    case _actions.TYPES.TOGGLE_SELECTION:
-      return setSelection(state, id, function (itemSelected) {
-        return !itemSelected;
-      });
-    case _actions.TYPES.TOGGLE_ALL_SELECTION:
-      return toggleAllSelection(state);
-    case _actions.TYPES.SET_SELECTION:
-      return setSelection(state, id, selected);
-    case _actions.TYPES.SET_ALL_SELECTION:
-      return setAllSelection(state, selected);
-    default:
-      return state;
-  }
-}
 
 function setSelection(selections, id, selected) {
   return selections.map(function (item) {
@@ -57,8 +50,8 @@ function toggleAllSelection(selections) {
 }
 
 function setAllSelection(selections, selected) {
-  return selections.map(function (_ref) {
-    var id = _ref.id;
+  return selections.map(function (_ref2) {
+    var id = _ref2.id;
     return { id: id, selected: selected };
   });
 }
